@@ -23,21 +23,6 @@ Vue.createApp({
   },
   methods: {
     showDetails(index) {
-      /* 
-            // Alternative solution 1
-            if (this.visibleDetails) {
-                this.visibleDetails = false
-            } else {
-                this.visibleDetails = true
-            }
-            
-            // Alternative solution 2
-            this.visibleDetails = this.visibleDetails
-                ? false
-                : true
-            */
-
-      // smartes solution
       this.pokemons[index].visibleDetails =
         !this.pokemons[index].visibleDetails;
     },
