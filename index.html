@@ -5,30 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Document</title>
+    <title>Pokemon Vue App</title>
   </head>
   <body>
     <div id="app">
-      <p>Anzahl Pokemons ist {{ pokemonCount }}</p>
-      <input type="text" v-model="searchQuery" />
-      <p>{{ searchQuery }}</p>
-      <div
-        v-for="(pokemon, index) in pokemonFilteredList"
-        v-bind:key="index"
-        class="pokemon-card pokemon-card--electro"
-      >
-        <figure class="pokemon-card__figure">
-          <img
-            class="pokemon-card__img"
-            src="https://assets.codepen.io/6682512/25.png"
-            alt="Pikachu"
-          />
-          <figcaption class="pokemon-card__caption">
-            <h3 class="pokemon-card__name">{{ pokemon.name }}</h3>
-            <hr class="pokemon-card__spacer" />
-            <div class="pokemon-card__type">{{ pokemon.type }}</div>
-          </figcaption>
-        </figure>
+      <form @submit.prevent class="search-bar">
+        <label class="search-bar__label" for="search-query"
+          >Pokemon Suche:</label
+        >
+        <input
+          class="search-bar__field"
+          type="text"
+          id="search-query"
+          v-model="searchQuery"
+        />
+      </form>
+      <p class="pokemon-list-count">
+        Derzeit werden {{ pokemonCount }} Pokemons angezeigt.
+      </p>
+      <div class="pokemon-list">
+        <div
+          v-for="(pokemon, index) in pokemonFilteredList"
+          v-bind:key="index"
+          class="pokemon-card pokemon-card--electro"
+        >
+          <figure class="pokemon-card__figure">
+            <img
+              class="pokemon-card__img"
+              :src="pokemon.imgSrc"
+              :alt="pokemon.name"
+            />
+            <figcaption class="pokemon-card__caption">
+              <h3 class="pokemon-card__name">{{ pokemon.name }}</h3>
+              <hr class="pokemon-card__spacer" />
+              <div class="pokemon-card__type">{{ pokemon.type }}</div>
+            </figcaption>
+            <button
+              class="pokemon-card__details-button"
+              @click="showDetails(index)"
+            >
+              {{ detailsButtonText(index) }}
+            </button>
+          </figure>
+          <ul v-if="pokemon.visibleDetails" class="pokemon-card__stats">
+            <li class="pokemon-card__stats-item">
+              <span class="pokemon-card__stats-item-value"
+                >{{ pokemon.hp }}</span
+              >
+              <span class="pokemon-card__stats-item-title">HP</span>
+            </li>
+            <li class="pokemon-card__stats-item">
+              <span class="pokemon-card__stats-item-value"
+                >{{ pokemon.weight }}</span
+              >
+              <span class="pokemon-card__stats-item-title">Weight</span>
+            </li>
+            <li class="pokemon-card__stats-item">
+              <span class="pokemon-card__stats-item-value"
+                >{{ pokemon.height }}</span
+              >
+              <span class="pokemon-card__stats-item-title">Height</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
