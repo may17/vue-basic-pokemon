@@ -33,6 +33,8 @@ Vue.createApp({
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
     const jsonData = await response.json();
 
+    jsonData.results;
+
     this.pokemons = jsonData.results;
   },
 }).mount("#app");
