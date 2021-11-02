@@ -26,7 +26,7 @@
       <div class="pokemon-list">
         <div
           v-for="(pokemon, index) in pokemonFilteredList"
-          v-bind:key="index"
+          v-bind:key="pokemon.name"
           class="pokemon-card pokemon-card--electro"
         >
           <figure class="pokemon-card__figure">
@@ -42,9 +42,9 @@
             </figcaption>
             <button
               class="pokemon-card__details-button"
-              @click="showDetails(index)"
+              @click="showDetails(pokemon.name)"
             >
-              {{ detailsButtonText(index) }}
+              {{ detailsButtonText(pokemon.name) }}
             </button>
           </figure>
           <ul v-if="pokemon.visibleDetails" class="pokemon-card__stats">

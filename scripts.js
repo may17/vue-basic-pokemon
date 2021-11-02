@@ -20,11 +20,22 @@ Vue.createApp({
     filterItems() {
       this.isFilterActive = true;
     },
-    showDetails(index) {
+
+    findPokemon(currentPokemonName) {
+      return this.pokemons.findIndex(
+        (pokemon) => pokemon.name === currentPokemonName
+      );
+    },
+
+    showDetails(currentPokemonName) {
+      const index = this.findPokemon(currentPokemonName);
+
       this.pokemons[index].visibleDetails =
         !this.pokemons[index].visibleDetails;
     },
-    detailsButtonText(index) {
+    detailsButtonText(currentPokemonName) {
+      const index = this.findPokemon(currentPokemonName);
+
       return this.pokemons[index].visibleDetails
         ? "Hide Details"
         : "Show Details";
